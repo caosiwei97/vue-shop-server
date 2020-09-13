@@ -12,7 +12,10 @@
  */
 // 1. 连接数据库
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/vue-shop')
+mongoose.connect('mongodb://localhost:27017/vue-shop',{
+  useNewUrlParser: true, // 新的URL解析器, 前提是URL必须加端口
+  useUnifiedTopology: true, // 新连接管理引擎
+})
 const conn = mongoose.connection
 conn.on('connected', function () {
   console.log('数据库连接成功!')
@@ -24,7 +27,7 @@ const userSchema = mongoose.Schema({
   'name': {type: String},
   // 密码
   'pwd': {type: String},
-  // 类型
+  // 手机号
   'phone': {'type': String}
 })
 UserModel = mongoose.model('user', userSchema)
